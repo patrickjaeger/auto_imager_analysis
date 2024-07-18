@@ -42,21 +42,10 @@ run("Set Measurements...", "area centroid bounding fit shape display " +
     "redirect=None decimal=3");
 run("Analyze Particles...", "size=300000-1400000 display exclude clear add");
 
-/*
-if (getResult("Area", 0) < 600000) {
-  print("Anomaly in:  " + img_title);
-}
-*/
-
 // Rotate image
 if (roiManager("count") != 1) {  // Abort if no well is found
   close("*");
   open(file);
-  
-  // First crop
-  //setTool("rectangle");
-  //waitForUser("Create selection to crop,\nthen press OK");
-  //run("Crop");
   
   // Rotate
   setTool("line");

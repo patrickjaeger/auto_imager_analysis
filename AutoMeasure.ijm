@@ -22,8 +22,6 @@ run("Set Measurements...", "area centroid shape display redirect=None decimal=3"
 open(file);
 img_title = getTitle();
 img_name = File.nameWithoutExtension;
-// exp (rotor) chamber k donor passage condition post day trash
-//img_name = "ADi-130_39_1_263_4_ctrl_2_day5_crpd.jpg";
 tags = split(img_name, "_");
 
 // Segment image
@@ -41,29 +39,6 @@ run("Convert to Mask");
 run("Fill Holes");
 run("Analyze Particles...", "size=6000-15000 circularity=0.70-1.00 display exclude add");
 
-/*
-run("Duplicate...", "title=mask");
-run("8-bit");
-run("Maximum...", "radius=2");
-run("Variance...", "radius=2");
-run("Maximum...", "radius=2");
-run("Gaussian Blur...", "sigma=10");
-setAutoThreshold("Minimum dark");
-//setThreshold(90, 255);
-run("Convert to Mask");
-run("Fill Holes");
-run("Analyze Particles...", "size=4000-9000 circularity=0.80-1.00 display exclude add");
-*/
-
-// Find blob centroids
-/*
-if (nResults != 2) {
-  selectWindow("mask");
-  rename(img_name);
-} else {
-  close("mask");
-}
-*/
 close("mask");
 
 
@@ -85,19 +60,7 @@ if (n_blobs == 2) {
   x2 = getResult("X", 1);
   y2 = getResult("Y", 1);
 } 
-/*
-else {
-  print("Error: unexpected number of blobs in " + img_title);
-  if (DEBUG) {
-    run("Analyze Particles...", "size=0 circularity=0-1.00 display exclude clear add");
-    for (i=0; i<nResults; i++) {
-      a = getResult("Area", i);
-      c = getResult("Circ.", i);
-      print("Area[" + i + "]=" + a + "; Circ.[" + i + "]=" + c);
-    }
-  }
-}
-*/
+
 close("Results");
 
 // Create distance table and/or table entry
@@ -181,7 +144,6 @@ function parse_digits(_str) {
   }
   return digits;
 }
-//print(parse_digits("day0"));
 
 function draw_circle(_x, _y) { 
   r = 110;
