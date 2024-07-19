@@ -36,8 +36,9 @@ wide_donor_forces <- donor_forces %>%
 
 # Export forces as CSV
 experiment <- basename(path) %>% str_split_1(., pattern = "_") %>% pluck(1)
-write_csv(wide_post_forces, file = paste0(experiment, "_post_forces.csv"))
-write_csv(wide_donor_forces, file = paste0(experiment, "_donor_forces.csv"))
+if (!dir.exists("results")) dir.create("results")
+write_csv(wide_post_forces, file = paste0("results/", experiment, "_post_forces.csv"))
+write_csv(wide_donor_forces, file = paste0("results/", experiment, "_donor_forces.csv"))
 
 
 # Plot
