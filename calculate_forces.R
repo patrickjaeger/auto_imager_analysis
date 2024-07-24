@@ -3,6 +3,7 @@
 library(tidyverse)
 
 path <- "data/ADi-130_distances.csv"
+path <- "data/bn-1_distances.csv"
 
 
 distances <- read_csv(path) %>%  mutate(nday = parse_number(day))
@@ -53,4 +54,8 @@ ggplot(donor_forces, aes(nday, force, group = donor, color = condition)) +
   geom_line(aes(group = interaction(donor, chamber)))
 
 
+## Plot force per condition
+ggplot(donor_forces, aes(nday, force, group = condition, color = condition)) +
+  stat_summary(geom = "point") +
+  stat_summary(geom = "line")
 
