@@ -2,11 +2,14 @@
 
 library(tidyverse)
 
+
 path <- "data/ADi-130_distances.csv"
-path <- "data/bn-1_distances.csv"
+path <- c("data/bn-1_distances.csv", "data/bn-1_distances_2.csv")
 
 
-distances <- read_csv(path) %>%  mutate(nday = parse_number(day))
+distances <- read_csv(path) %>%
+  mutate(day = str_replace(day, "day\\d{1}_", paste0("day0", day, "_"))) %>% 
+  mutate(nday = parse_number(day)) 
 
 # Calculate forces
 post_forces <- distances %>% 
@@ -19,7 +22,8 @@ post_forces <- distances %>%
 
 donor_forces <- post_forces %>% 
   group_by(experiment, chamber, donor, k, condition, nday) %>% 
-  summarise(force = mean(force)) %>% 
+  summarise(force = mean(force),
+            distance = mean(distance_um)) %>% 
   ungroup()
 
 wide_post_forces <- post_forces %>% 
@@ -57,5 +61,14 @@ ggplot(donor_forces, aes(nday, force, group = donor, color = condition)) +
 ## Plot force per condition
 ggplot(donor_forces, aes(nday, force, group = condition, color = condition)) +
   stat_summary(geom = "point") +
-  stat_summary(geom = "line")
+  stat_summary(geom = "line") +
+  scale_x_continuous(breaks = unique(donor_forces$nday)) +
+  scale_y_continuous(breaks = seq(-100, 300, 50))
+
+
+## Plot contraction per condition
+ggplot(donor_forces, aes(nday, distance, group = condition, color = condition)) +
+  stat_summary(geom = "point") +
+  stat_summary(geom = "line") +
+  scale_x_continuous(breaks = unique(donor_forces$nday)) 
 
