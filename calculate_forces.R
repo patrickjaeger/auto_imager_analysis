@@ -55,7 +55,13 @@ ggplot(post_forces, aes(nday, force, group = interaction(post, donor), color = c
 ## Plot force per donor
 ggplot(donor_forces, aes(nday, force, group = donor, color = condition)) +
   geom_point() +
-  geom_line(aes(group = interaction(donor, chamber)))
+  geom_hline(yintercept = 0, linetype = 3) +
+  geom_line(aes(group = interaction(donor, chamber))) +
+  facet_grid(donor~condition) +
+  theme_bw() +
+  theme(axis.text = element_text(size = 7)) +
+  scale_x_continuous(breaks = unique(donor_forces$nday)) +
+  labs(x = "Day [n]", y = "Tension [uN]")
 
 
 ## Plot force per condition
