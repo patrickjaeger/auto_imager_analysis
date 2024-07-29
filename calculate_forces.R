@@ -11,6 +11,11 @@ distances <- read_csv(path) %>%
   mutate(day = str_replace(day, "day\\d{1}_", paste0("day0", day, "_"))) %>% 
   mutate(nday = parse_number(day)) 
 
+unique(distances$condition)
+distances <- distances %>% mutate(condition = ifelse(condition == "lg-ecm-48h",
+                                                     "lg-ecm-72h",
+                                                     condition))
+
 # Calculate forces
 post_forces <- distances %>% 
   group_nest(experiment, chamber, post) %>%
