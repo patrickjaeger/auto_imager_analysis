@@ -33,11 +33,11 @@ run("Maximum...", "radius=5");
 run("Maximum...", "radius=5");
 run("Maximum...", "radius=5");
 run("Gaussian Blur...", "sigma=5");
-setThreshold(235, 255);
+setThreshold(100, 255);
 setOption("BlackBackground", true);
 run("Convert to Mask");
-run("Fill Holes");
-run("Analyze Particles...", "size=6000-15000 circularity=0.70-1.00 display exclude add");
+//run("Fill Holes");
+run("Analyze Particles...", "size=5000-15000 circularity=0.70-1.00 display exclude add");
 
 close("mask");
 
