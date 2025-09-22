@@ -24,12 +24,11 @@ if (!File.isDirectory(dir + File.separator + "processed")) {
 }
 
 // Isolate central well
-makeRectangle(1536, 0, 1736, 2592);
+makeRectangle(1128, 552, 2124, 1542);
 run("Crop");
 run("Duplicate...", "title=mask");
-run("Split Channels");
-close("*(blue)");
-close("*(red)");
+run("8-bit");
+
 
 // Threshold
 run("Maximum...", "radius=5");
@@ -66,7 +65,7 @@ if (roiManager("count") != 1) {  // Abort if no well is found
   run("Crop");
 } else {
   angle = getResult("Angle", 0);
-  rotation_angle = angle - 90;
+  rotation_angle = angle;
   run("Rotate... ", "angle=" + rotation_angle);
 
   // Find rotated blob
@@ -81,7 +80,7 @@ if (roiManager("count") != 1) {  // Abort if no well is found
     // Rotate
     selectWindow(img_title);
     angle = getResult("Angle", 0);
-    rotation_angle = angle - 90;
+    rotation_angle = angle;
     run("Rotate... ", "angle=" + rotation_angle);
   
     // Crop
@@ -93,7 +92,7 @@ if (roiManager("count") != 1) {  // Abort if no well is found
     );
   
     getSelectionBounds(x, y, width, height);
-    if (height < 1000) {
+    if (width < 1000) {
       waitForUser("Adjust selection to crop,\nthen press OK");
       run("Crop");
     } else

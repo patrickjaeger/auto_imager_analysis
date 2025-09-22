@@ -27,27 +27,28 @@ tags = split(img_name, "_");
 // Segment image
 run("Duplicate...", "title=mask");
 run("8-bit");
-run("Median...", "radius=3");
-run("Maximum...", "radius=5");
-run("Maximum...", "radius=5");
-run("Maximum...", "radius=5");
-run("Maximum...", "radius=5");
-run("Gaussian Blur...", "sigma=5");
-setThreshold(100, 255);
+run("Gaussian Blur...", "sigma=3");
+run("Maximum...", "radius=20");
+setThreshold(150, 255);
 setOption("BlackBackground", true);
 run("Convert to Mask");
-//run("Fill Holes");
-run("Analyze Particles...", "size=5000-15000 circularity=0.70-1.00 display exclude add");
 
+run("Analyze Particles...", "size=5000-16000 circularity=0.80-1.00 display exclude add");
+//for (i = 0; i < roiManager("count"); i++) {
+//  roiManager("select", i);
+//  run("Fill Holes");
+//}
+//roiManager("reset");
+//run("Analyze Particles...", "size=5000-15000 circularity=0.70-1.00 display exclude add");
 close("mask");
 
 
 if (nResults != 2) {
   run("Clear Results");
-  makeOval(51, 46, 206, 206);
+  makeOval(185, 248, 206, 206);
   waitForUser("Place circle, then press OK");
   if (selectionType() == 1) {run("Measure");}
-  makeOval(51, 46, 206, 206);
+  makeOval(1159, 264, 206, 206);
   waitForUser("Place circle, then press OK");
   if (selectionType() == 1) {run("Measure");}
   run("Select None");
