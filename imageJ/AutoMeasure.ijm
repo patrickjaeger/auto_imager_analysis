@@ -29,11 +29,11 @@ run("Duplicate...", "title=mask");
 run("8-bit");
 run("Gaussian Blur...", "sigma=3");
 run("Maximum...", "radius=20");
-setThreshold(150, 255);
+setThreshold(130, 255);
 setOption("BlackBackground", true);
 run("Convert to Mask");
 
-run("Analyze Particles...", "size=5000-16000 circularity=0.80-1.00 display exclude add");
+run("Analyze Particles...", "size=5000-16000 circularity=0.70-1.00 display exclude add");
 //for (i = 0; i < roiManager("count"); i++) {
 //  roiManager("select", i);
 //  run("Fill Holes");
