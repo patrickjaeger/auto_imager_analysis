@@ -24,7 +24,7 @@ if (!File.isDirectory(dir + File.separator + "processed")) {
 }
 
 // Isolate central well
-makeRectangle(969, 552, 2124, 1542);
+makeRectangle(969, 552, 2655, 1542);
 run("Crop");
 run("Duplicate...", "title=mask");
 run("8-bit");
