@@ -22,7 +22,8 @@ run("Set Measurements...", "area centroid shape display redirect=None decimal=3"
 open(file);
 img_title = getTitle();
 img_name = File.nameWithoutExtension;
-experiment_id = split(img_name, "_")[0];
+tags = split(img_name, "_");
+experiment_id = tags[0];
 
 // Segment image
 run("Duplicate...", "title=mask");

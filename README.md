@@ -1,5 +1,7 @@
 # Auto Imager Analysis
 
+Hotfix: this branch can handle underscores in "condition".
+
 **In imageJ:**
 
 1.  Move all images into one folder
