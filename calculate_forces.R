@@ -6,6 +6,7 @@ path <- "data/ADi-130_distances.csv"
 
 
 distances <- read_csv(path) %>%
+  separate(img, c("tags")) %>%  # FILL IN RELEVANT TAGS HERE
   mutate(nday = parse_number(as.character(day))) %>%
   mutate(k = ifelse(str_detect(k, "-"), 
                     str_replace(k, "-", "."), 

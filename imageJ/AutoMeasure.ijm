@@ -22,7 +22,7 @@ run("Set Measurements...", "area centroid shape display redirect=None decimal=3"
 open(file);
 img_title = getTitle();
 img_name = File.nameWithoutExtension;
-tags = split(img_name, "_");
+experiment_id = split(img_name, "_")[0];
 
 // Segment image
 run("Duplicate...", "title=mask");
@@ -65,27 +65,19 @@ if (n_blobs == 2) {
 close("Results");
 
 // Create distance table and/or table entry
-colnames = newArray("experiment", "chamber", "k", "donor", "passage", 
-                    "condition", "post", "day", "distance_um");
+table_name = experiment_id + "_distances";
 
-table_name = tags[0] + "_distances";
+// this runs on the first iteration to create the table
 if (!isOpen(table_name)) {
   Table.create(table_name);
   selectWindow(table_name);
-  for (i=0; i<colnames.length; i++) {
-    Table.setColumn(colnames[i], newArray());
-  }
+  Table.setColumn("img", newArray());
+  Table.setColumn("distance_um", newArray());
 }
 
 selectWindow(table_name);
-
 current_row = Table.size;
-for (i=0; i<colnames.length-1; i++) {
-  Table.set(colnames[i], current_row, tags[i]);
-}
-string_day = Table.getString("day", current_row);
-numeric_day = parse_digits(string_day);
-Table.set("day", current_row, numeric_day);
+Table.set("img", current_row, img_name);
 
 // Calculate distance and write to table
 if (n_blobs == 2) {
