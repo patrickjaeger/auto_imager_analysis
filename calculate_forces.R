@@ -2,15 +2,17 @@
 
 library(tidyverse)
 
-path <- "data/ADi-130_distances.csv"
-
+path <- "data/ADi-801_distances.csv"  # change path to point to xxx_distances.csv file
+conditions <- c("condition")  # FILL IN RELEVANT SUBCONDITIONS HERE, e.g. c("drug1", "drug2")
 
 distances <- read_csv(path) %>%
-  separate(img, c("tags")) %>%  # FILL IN RELEVANT TAGS HERE
-  mutate(nday = parse_number(as.character(day))) %>%
+  separate(img, c("experiment", "chamber", "k", "donor", "passage", 
+                  conditions, "post", "day"), extra = "drop", sep = "_") %>%  
+  mutate(nday = parse_number(as.character(day))) %>% 
   mutate(k = ifelse(str_detect(k, "-"), 
                     str_replace(k, "-", "."), 
-                    as.character(k)) %>% parse_number()) distances
+                    as.character(k)) %>% parse_number())
+distances
 unique(distances$day)
 
 
